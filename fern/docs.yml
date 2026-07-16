@@ -1,0 +1,61 @@
+# yaml-language-server: $schema=https://schema.buildwithfern.dev/docs-yml.json
+
+instances:
+  - url: chesstify.docs.buildwithfern.com
+    edit-this-page:
+      github:
+        owner: fern-starter
+        repo: abisena-pramudya-s-team-oh80fnxq
+        branch: main
+      launch: dashboard
+title: Chesstify | Documentation
+layout:
+  searchbar-placement: header
+  page-width: full
+navigation:
+  - api: Chess API
+    flattened: false
+    layout:
+      - Content:
+          summary: docs/pages/content-overview.mdx
+      - User:
+          contents:
+            - user.profile:
+                contents:
+                  - user.profile.verifyPhoneNumber: {}
+                  - user.profile.kyc: {}
+                  - user.profile.avatar: {}
+            - user.team: {}
+            - user.registration: {}
+            - user.activity: {}
+            - user.invoice: {}
+            - user.tournament: {}
+            - user.forgotPassword: {}
+    summary: docs/pages/collection-overview.mdx
+colors:
+  accent-primary:
+    light: "#008700"
+    dark: "#18A8F1"
+  background:
+    light: "#FFFFFF"
+    dark: "#111113"
+  border:
+    light: "#E5E7EB"
+    dark: "#222325"
+theme:
+  page-actions: toolbar
+  footer-nav: minimal
+logo:
+  dark: docs/assets/logo-dark.svg
+  light: docs/assets/logo.svg
+  height: 20
+  href: https://buildwithfern.com
+favicon: docs/assets/favicon.svg
+css:
+  - styles.css
+  - docs/assets/onboarding-theme.css
+typography:
+  headingsFont:
+    name: Inter
+  bodyFont:
+    name: Inter

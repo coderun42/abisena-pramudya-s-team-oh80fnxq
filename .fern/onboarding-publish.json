@@ -1,0 +1,10 @@
+{
+  "desiredContentHash": "ec55c9e96a2cc2b3b500ac5dce3b5a7b531070c39ddf757ceaf834b058aff9b0",
+  "docsUrl": "https://chesstify.docs.buildwithfern.com",
+  "starter": {
+    "repoOwner": "fern-api",
+    "repoName": "docs-starter-internal",
+    "commitSha": "abf6de6e5327dbde36a53464b5f01fad8162fc14",
+    "label": "2026-06-30-vendor-onboarding-layouts"
+  }
+}

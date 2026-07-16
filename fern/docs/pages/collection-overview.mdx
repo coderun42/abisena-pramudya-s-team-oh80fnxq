@@ -1,0 +1,40 @@
+---
+title: Overview
+---
+
+This API is used to communicate with Oredo Api.
+
+# Authentication
+
+Authentication standard that are being used is Oauth2. There are 2 [Grant Types](https://oauth.net/2/grant-types/) that are being used in this API.
+
+## Password Grant
+
+The Password grant type is used by first-party clients to exchange a user's credentials for an access token. Most of the APIs requires to have access token tied to certain user. By using the access token, we can recognize the user.
+
+## Client Credential Grant
+
+The Client Credentials grant type is used by clients to obtain an access token outside of the context of a user. Some of the APIs doesn't require to have user such as getting website information, registering new player, etc.
+
+# General Request
+
+## GET Request
+
+All of GET request parameters will be included in query string
+
+## POST Request
+
+All of POST request parameters must be added inside Body -> Raw in JSON format.
+
+# General Response
+
+All reponse will be in JSON format. With at least parameters :
+
+- `success` in boolean
+    
+- `messages` in string
+    
+
+## Success Response
+
+All success
