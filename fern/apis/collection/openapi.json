@@ -1,9 +1,2666 @@
 {
+  "openapi": "3.1.0",
   "info": {
     "title": "Chess API",
     "version": "1.0.0",
     "description": "This API is used to communicate with Oredo Api.\n\n# Authentication\n\nAuthentication standard that are being used is Oauth2. There are 2 [Grant Types](https://oauth.net/2/grant-types/) that are being used in this API.\n\n## Password Grant\n\nThe Password grant type is used by first-party clients to exchange a user's credentials for an access token. Most of the APIs requires to have access token tied to certain user. By using the access token, we can recognize the user.\n\n## Client Credential Grant\n\nThe Client Credentials grant type is used by clients to obtain an access token outside of the context of a user. Some of the APIs doesn't require to have user such as getting website information, registering new player, etc.\n\n# General Request\n\n## GET Request\n\nAll of GET request parameters will be included in query string\n\n## POST Request\n\nAll of POST request parameters must be added inside Body -> Raw in JSON format.\n\n# General Response\n\nAll reponse will be in JSON format. With at least parameters :\n\n- `success` in boolean\n    \n- `messages` in string\n    \n\n## Success Response\n\nAll success"
   },
+  "paths": {
+    "/oauth/token": {
+      "post": {
+        "operationId": "postOauthToken",
+        "summary": "Login",
+        "description": "Retrieving access token in exchange of user and password.",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "Auth"
+        ],
+        "x-fern-sdk-group-name": [
+          "Auth"
+        ],
+        "x-fern-sdk-method-name": "Login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "grant_type": {
+                    "type": "string"
+                  },
+                  "client_id": {
+                    "type": "string"
+                  },
+                  "client_secret": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "scope": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "grant_type",
+                  "client_id",
+                  "client_secret",
+                  "username",
+                  "password",
+                  "scope"
+                ]
+              },
+              "example": {
+                "grant_type": "password",
+                "client_id": "{{CLIENT_ID}}",
+                "client_secret": "{{CLIENT_SECRET}}",
+                "username": "abisena",
+                "password": "secret",
+                "scope": ""
+              }
+            }
+          }
+        }
+      }
+    },
+    "/oauth/token#postOauthToken2": {
+      "post": {
+        "operationId": "postOauthToken2",
+        "summary": "Client Credential Grant",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "Auth"
+        ],
+        "x-fern-sdk-group-name": [
+          "Auth"
+        ],
+        "x-fern-sdk-method-name": "Client Credential Grant",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "grant_type": {
+                    "type": "string"
+                  },
+                  "client_id": {
+                    "type": "string"
+                  },
+                  "client_secret": {
+                    "type": "string"
+                  },
+                  "scope": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "grant_type",
+                  "client_id",
+                  "client_secret",
+                  "scope"
+                ]
+              },
+              "example": {
+                "grant_type": "client_credentials",
+                "client_id": "{{MACHINE_ID}}",
+                "client_secret": "{{MACHINE_SECRET}}",
+                "scope": ""
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/news/list": {
+      "get": {
+        "operationId": "getApiV1NewsList",
+        "summary": "News",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "Content"
+        ],
+        "x-fern-sdk-group-name": [
+          "Content"
+        ],
+        "x-fern-sdk-method-name": "News",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "{\n    \"category\" : \"publication\" // publication or news\n}"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/document/list": {
+      "get": {
+        "operationId": "getApiV1DocumentList",
+        "summary": "Document",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "Content"
+        ],
+        "x-fern-sdk-group-name": [
+          "Content"
+        ],
+        "x-fern-sdk-method-name": "Document"
+      }
+    },
+    "/api/v1/partner/list": {
+      "get": {
+        "operationId": "getApiV1PartnerList",
+        "summary": "Partner",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "Content"
+        ],
+        "x-fern-sdk-group-name": [
+          "Content"
+        ],
+        "x-fern-sdk-method-name": "Partner"
+      }
+    },
+    "/api/v1/pages/list": {
+      "get": {
+        "operationId": "getApiV1PagesList",
+        "summary": "Pages",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "Content"
+        ],
+        "x-fern-sdk-group-name": [
+          "Content"
+        ],
+        "x-fern-sdk-method-name": "Pages"
+      }
+    },
+    "/api/v1/galery/list": {
+      "get": {
+        "operationId": "getApiV1GaleryList",
+        "summary": "Galery",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "Content"
+        ],
+        "x-fern-sdk-group-name": [
+          "Content"
+        ],
+        "x-fern-sdk-method-name": "Galery",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "{\n    \"category_slug\" : \"\", //Default all\n    \"page\" : 1,\n    \"paginate\" : 20\n}"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/galery/categories": {
+      "get": {
+        "operationId": "getApiV1GaleryCategories",
+        "summary": "Galery Category",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "Content"
+        ],
+        "x-fern-sdk-group-name": [
+          "Content"
+        ],
+        "x-fern-sdk-method-name": "Galery Category"
+      }
+    },
+    "/api/v1/pengprov/list": {
+      "get": {
+        "operationId": "getApiV1PengprovList",
+        "summary": "Pengprov",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "Content"
+        ],
+        "x-fern-sdk-group-name": [
+          "Content"
+        ],
+        "x-fern-sdk-method-name": "Pengprov"
+      }
+    },
+    "/api/v1/users/registration": {
+      "post": {
+        "operationId": "postApiV1UsersRegistration",
+        "summary": "Registration",
+        "description": "Register new user into whitelabel website. \n\n# Parameters\n\n## JSON Params\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `username` | string |  Yes | Username | aaaaaa | \n| `password` | string | Yes | user password | secret|\n| `password_confirmation` | string | Yes | user password confirmatiion | secret |",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Registration"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Registration"
+        ],
+        "x-fern-sdk-method-name": "Registration",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "{\n  \"username\": \"ab1sena1412\",\n  \"password\": \"secret123\",\n  \"password_confirmation\" : \"secret123\",\n  \"email\" : \"abisena.2132@gmail.com\",\n  \"telephone\" : \"895377520611\",\n  \"signup_ip\" : \"127.0.0.1\",\n  \"is_mobile\" : 0,\n  \"referral_username\" : \"\",\n  \"province_id\" : 1,\n  \"city_id\" : 1,\n  \"fullname\" : \"scrip\",\n  \"captcha\" : \"\", //optional\n  \"key\": \"\" //key for the captcha\n}"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/checkavailibility": {
+      "post": {
+        "operationId": "postApiV1UsersCheckavailibility",
+        "summary": "Check Avaibility Username",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Registration"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Registration"
+        ],
+        "x-fern-sdk-method-name": "Check Avaibility Username",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username"
+                ]
+              },
+              "example": {
+                "username": "emberspirait"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/email/checkavailibility": {
+      "post": {
+        "operationId": "postApiV1UsersEmailCheckavailibility",
+        "summary": "Check Avaibility Email",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Registration"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Registration"
+        ],
+        "x-fern-sdk-method-name": "Check Avaibility Email",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              },
+              "example": {
+                "email": "test@gmail.coma"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/captcha/api/flat": {
+      "get": {
+        "operationId": "getCaptchaApiFlat",
+        "summary": "Captcha",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Registration"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Registration"
+        ],
+        "x-fern-sdk-method-name": "Captcha"
+      }
+    },
+    "/api/v1/users/kyc/ocr": {
+      "post": {
+        "operationId": "postApiV1UsersKycOcr",
+        "summary": "OCR KTP",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile",
+          "KYC"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile",
+          "KYC"
+        ],
+        "x-fern-sdk-method-name": "OCR KTP",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "image_ktp": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "image_ktp"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/kyc/submit": {
+      "post": {
+        "operationId": "postApiV1UsersKycSubmit",
+        "summary": "KYC",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile",
+          "KYC"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile",
+          "KYC"
+        ],
+        "x-fern-sdk-method-name": "KYC",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fullname": {
+                    "type": "string"
+                  },
+                  "nik": {
+                    "type": "string"
+                  },
+                  "birth_date": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phone_number": {
+                    "type": "string"
+                  },
+                  "selfie_photo": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "image_ktp": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "gender": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "fullname",
+                  "nik",
+                  "birth_date",
+                  "email",
+                  "phone_number",
+                  "selfie_photo",
+                  "image_ktp",
+                  "gender"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/kyc/reset": {
+      "post": {
+        "operationId": "postApiV1UsersKycReset",
+        "summary": "Reset KYC",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile",
+          "KYC"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile",
+          "KYC"
+        ],
+        "x-fern-sdk-method-name": "Reset KYC"
+      }
+    },
+    "/api/v1/verify/phone": {
+      "post": {
+        "operationId": "postApiV1VerifyPhone",
+        "summary": "Verify phone number",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile",
+          "Verify phone number"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile",
+          "Verify phone number"
+        ],
+        "x-fern-sdk-method-name": "Verify phone number"
+      }
+    },
+    "/api/v1/users/avatar/list": {
+      "get": {
+        "operationId": "getApiV1UsersAvatarList",
+        "summary": "Get Avatar List",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile",
+          "Avatar"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile",
+          "Avatar"
+        ],
+        "x-fern-sdk-method-name": "Get Avatar List"
+      }
+    },
+    "/api/v1/users/avatar/change": {
+      "post": {
+        "operationId": "postApiV1UsersAvatarChange",
+        "summary": "Update avatar",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile",
+          "Avatar"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile",
+          "Avatar"
+        ],
+        "x-fern-sdk-method-name": "Update avatar",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                },
+                "required": [
+                  "avatar"
+                ]
+              },
+              "example": {
+                "avatar": "https://assets.pborado.com/avatar/0.webp"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/me": {
+      "get": {
+        "operationId": "getApiV1UsersMe",
+        "summary": "Get User Profile",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-method-name": "Get User Profile"
+      }
+    },
+    "/api/v1/users/password/update": {
+      "post": {
+        "operationId": "postApiV1UsersPasswordUpdate",
+        "summary": "Update Password",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-method-name": "Update Password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "old_password": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "password_confirmation": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "old_password",
+                  "password",
+                  "password_confirmation"
+                ]
+              },
+              "example": {
+                "old_password": "secret",
+                "password": "secret",
+                "password_confirmation": "secret"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/profile/update": {
+      "post": {
+        "operationId": "postApiV1UsersProfileUpdate",
+        "summary": "Update profile",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-method-name": "Update profile",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fullname": {
+                    "type": "string"
+                  },
+                  "birth_date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "gender": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "hide_age": {
+                    "type": "integer"
+                  },
+                  "hide_birth_date": {
+                    "type": "integer"
+                  },
+                  "hide_province": {
+                    "type": "integer"
+                  },
+                  "hide_city": {
+                    "type": "integer"
+                  },
+                  "user_pic": {
+                    "type": "string"
+                  },
+                  "province_id": {
+                    "type": "integer"
+                  },
+                  "telephone": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "fullname",
+                  "birth_date",
+                  "gender",
+                  "email",
+                  "city",
+                  "hide_age",
+                  "hide_birth_date",
+                  "hide_province",
+                  "hide_city",
+                  "user_pic",
+                  "province_id",
+                  "telephone"
+                ]
+              },
+              "example": {
+                "fullname": "emberspirit",
+                "birth_date": "2024-10-10",
+                "gender": "male",
+                "email": "test1@gmail.com",
+                "city": "bekasy",
+                "hide_age": 1,
+                "hide_birth_date": 1,
+                "hide_province": 1,
+                "hide_city": 1,
+                "user_pic": "update.jpg",
+                "province_id": 1,
+                "telephone": "0222"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/email/verification-notification": {
+      "post": {
+        "operationId": "postApiV1EmailVerification-notification",
+        "summary": "OTP Email Verification",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-method-name": "OTP Email Verification"
+      }
+    },
+    "/api/v1/verify/otp": {
+      "post": {
+        "operationId": "postApiV1VerifyOtp",
+        "summary": "Verify OTP",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-method-name": "Verify OTP",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "{\n    \"otp_code\":\"626360\",\n    \"type\" : \"phone\" //email / phone\n}"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/email/change": {
+      "post": {
+        "operationId": "postApiV1UsersEmailChange",
+        "summary": "Change Email",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-method-name": "Change Email",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              },
+              "example": {
+                "email": "abisena.pramudya@gmail.com"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/phone/change": {
+      "post": {
+        "operationId": "postApiV1UsersPhoneChange",
+        "summary": "Change Phone",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-method-name": "Change Phone",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "telephone": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "telephone"
+                ]
+              },
+              "example": {
+                "telephone": "0891238231212"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/change/profile-picture": {
+      "post": {
+        "operationId": "postApiV1UsersChangeProfile-picture",
+        "summary": "Change Profile Pict",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-method-name": "Change Profile Pict",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "image"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/profile/update-privacy": {
+      "post": {
+        "operationId": "postApiV1UsersProfileUpdate-privacy",
+        "summary": "Update Privacy",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-method-name": "Update Privacy",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "hide_age": {
+                    "type": "integer"
+                  },
+                  "hide_birth_date": {
+                    "type": "integer"
+                  },
+                  "hide_province": {
+                    "type": "integer"
+                  },
+                  "hide_city": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "hide_age",
+                  "hide_birth_date",
+                  "hide_province",
+                  "hide_city"
+                ]
+              },
+              "example": {
+                "hide_age": 1,
+                "hide_birth_date": 1,
+                "hide_province": 1,
+                "hide_city": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/province/list": {
+      "post": {
+        "operationId": "postApiV1UsersProvinceList",
+        "summary": "Province list",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-method-name": "Province list"
+      }
+    },
+    "/api/v1/users/city/list": {
+      "post": {
+        "operationId": "postApiV1UsersCityList",
+        "summary": "Province list Copy",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-method-name": "Province list Copy",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "province_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "province_id"
+                ]
+              },
+              "example": {
+                "province_id": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/referral/list": {
+      "get": {
+        "operationId": "getApiV1UsersReferralList",
+        "summary": "Referral List",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-method-name": "Referral List"
+      }
+    },
+    "/api/v1/users/history-tournament": {
+      "get": {
+        "operationId": "getApiV1UsersHistory-tournament",
+        "summary": "History Tournament",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Profile"
+        ],
+        "x-fern-sdk-method-name": "History Tournament"
+      }
+    },
+    "/api/v1/tournament/list": {
+      "get": {
+        "operationId": "getApiV1TournamentList",
+        "summary": "Get Tournament List",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-method-name": "Get Tournament List",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "{\n    \"game_type\": \"All\", //Domino / DominoTagTeam. Default : All\n    \"status\":\"2, 1, 4\", // Status: 0 = schedule, 1 = start, 2 = end, 3 = reg closed, 4 = canceled, 5 = upcoming. seperate using to multiple filter\n    \"page\" : 1,\n    \"pagination\" : 20, //default 10,\n    \"name\" : \"\", //for search tournament by name,\n    \"date\" : \"\", //filter by date\n    \"slot_available\" : \"\", // filter tournament slot available for register 1 available, 0 full, default : All\n    \"is_register\" : null\n\n}"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tournament/detail": {
+      "get": {
+        "operationId": "getApiV1TournamentDetail",
+        "summary": "Get Tournament Detail",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-method-name": "Get Tournament Detail",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "523"
+          }
+        ]
+      }
+    },
+    "/api/v1/tournament/join": {
+      "post": {
+        "operationId": "postApiV1TournamentJoin",
+        "summary": "Join Tournament",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-method-name": "Join Tournament",
+        "parameters": [
+          {
+            "name": "secret",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "anothersupersecret"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tournament_id": {
+                    "type": "integer"
+                  },
+                  "ip": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "tournament_id",
+                  "ip"
+                ]
+              },
+              "example": {
+                "tournament_id": 621,
+                "ip": "127.0.0.1"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tournament/course": {
+      "post": {
+        "operationId": "postApiV1TournamentCourse",
+        "summary": "Join Course",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-method-name": "Join Course",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "room_id": {
+                    "type": "integer"
+                  },
+                  "lobby_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "room_id",
+                  "lobby_id"
+                ]
+              },
+              "example": {
+                "room_id": 3,
+                "lobby_id": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tournament/course-team": {
+      "post": {
+        "operationId": "postApiV1TournamentCourse-team",
+        "summary": "Join Course Tag Team",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-method-name": "Join Course Tag Team",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "room_id": {
+                    "type": "integer"
+                  },
+                  "team": {
+                    "type": "string"
+                  },
+                  "lobby_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "room_id",
+                  "team",
+                  "lobby_id"
+                ]
+              },
+              "example": {
+                "room_id": 1,
+                "team": "A",
+                "lobby_id": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tournament/course/list": {
+      "get": {
+        "operationId": "getApiV1TournamentCourseList",
+        "summary": "Get Course List",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-method-name": "Get Course List",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "{\n    \"game_type\" : \"Domino\" // 'Domino' or 'DominoTagTeam'\n}"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tournament/result": {
+      "get": {
+        "operationId": "getApiV1TournamentResult",
+        "summary": "Tournament Result",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-method-name": "Tournament Result",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "{\n    \"date\" : \"2026-01-06\",\n    \"type\" : \"All\", // Gaple, GapleTagTeam, All. default All\n    \"stage_id\" : \"\", //optional list on response api\n    \"tournament_id\" : \"\"  //optional lost on response api\n}"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tournament/result/detail": {
+      "get": {
+        "operationId": "getApiV1TournamentResultDetail",
+        "summary": "Tournament Result Detail",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-method-name": "Tournament Result Detail",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              },
+              "example": {
+                "id": 1995
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tournament/best-team": {
+      "get": {
+        "operationId": "getApiV1TournamentBest-team",
+        "summary": "Best Team",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-method-name": "Best Team"
+      }
+    },
+    "/api/v1/tournament/register/list": {
+      "get": {
+        "operationId": "getApiV1TournamentRegisterList",
+        "summary": "Get tournament Registered",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-method-name": "Get tournament Registered",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "{\n    \"game_type\": \"All\", //Domino / DominoTagTeam. Default : All\n    \"page\" : 1,\n    \"pagination\" : 20 //default 10\n}"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tournament/national-rankings": {
+      "get": {
+        "operationId": "getApiV1TournamentNational-rankings",
+        "summary": "National Ranking",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-method-name": "National Ranking"
+      }
+    },
+    "/api/v1/tournament/my-rankings": {
+      "get": {
+        "operationId": "getApiV1TournamentMy-rankings",
+        "summary": "My Ranking",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-method-name": "My Ranking"
+      }
+    },
+    "/api/v1/tournament/table-distribution": {
+      "get": {
+        "operationId": "getApiV1TournamentTable-distribution",
+        "summary": "Table Distribution",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Tournament"
+        ],
+        "x-fern-sdk-method-name": "Table Distribution",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              },
+              "example": {
+                "id": "351"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/password/validate": {
+      "post": {
+        "operationId": "postApiV1UsersPasswordValidate",
+        "summary": "Validate Old Password",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Activity"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Activity"
+        ],
+        "x-fern-sdk-method-name": "Validate Old Password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "old_password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "old_password"
+                ]
+              },
+              "example": {
+                "old_password": "123456"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/logout": {
+      "post": {
+        "operationId": "postApiV1UsersLogout",
+        "summary": "User Logout",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Activity"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Activity"
+        ],
+        "x-fern-sdk-method-name": "User Logout",
+        "requestBody": {
+          "content": {
+            "application/json": {}
+          }
+        }
+      }
+    },
+    "/api/v1/users/lastlogin/update": {
+      "post": {
+        "operationId": "postApiV1UsersLastloginUpdate",
+        "summary": "User Update Last Login IP",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Activity"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Activity"
+        ],
+        "x-fern-sdk-method-name": "User Update Last Login IP",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "login_ip": {
+                    "type": "string"
+                  },
+                  "platform": {
+                    "type": "string"
+                  },
+                  "user_agent": {
+                    "type": "string"
+                  },
+                  "session": {
+                    "type": "string"
+                  },
+                  "domain": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "login_ip",
+                  "platform",
+                  "user_agent",
+                  "session",
+                  "domain"
+                ]
+              },
+              "example": {
+                "login_ip": "127.0.0.1",
+                "platform": "mobile",
+                "user_agent": "Fake Taxi",
+                "session": "",
+                "domain": "web.com"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/session/validate": {
+      "post": {
+        "operationId": "postApiV1UsersSessionValidate",
+        "summary": "Validate Session",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Activity"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Activity"
+        ],
+        "x-fern-sdk-method-name": "Validate Session",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "session": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username",
+                  "session"
+                ]
+              },
+              "example": {
+                "username": "emberspirit",
+                "session": "test"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/forgot/username": {
+      "post": {
+        "operationId": "postApiV1UsersForgotUsername",
+        "summary": "Forgot Username",
+        "description": "Reset password and send token to email\n\n# Parameters\n\n## URL Params \n\napi/v1/users/password/reset/{whitelabelCode}\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `whitelabelCode` | string |  Yes | White label code | aaaaaa | \n\n## JSON Params\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `username` | string |  Yes | Username | cloud | \n| `domain` | string | Yes | Website domain | domain.app |",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Forgot Password"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Forgot Password"
+        ],
+        "x-fern-sdk-method-name": "Forgot Username",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              },
+              "example": {
+                "email": "test@gmail.com"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/password/reset": {
+      "post": {
+        "operationId": "postApiV1UsersPasswordReset",
+        "summary": "Reset Password",
+        "description": "Reset password and send token to email\n\n# Parameters\n\n## URL Params \n\napi/v1/users/password/reset/{whitelabelCode}\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `whitelabelCode` | string |  Yes | White label code | aaaaaa | \n\n## JSON Params\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `username` | string |  Yes | Username | cloud | \n| `domain` | string | Yes | Website domain | domain.app |",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Forgot Password"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Forgot Password"
+        ],
+        "x-fern-sdk-method-name": "Reset Password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "domain": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "domain"
+                ]
+              },
+              "example": {
+                "email": "",
+                "domain": "orado.co.id"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/password/otp": {
+      "post": {
+        "operationId": "postApiV1UsersPasswordOtp",
+        "summary": "Reset Password Validate OTP",
+        "description": "Validate password reset token sent via email\n\n# Parameters\n\n## URL Params \n\napi/v1/users/password/token/{whitelabelCode}\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `whitelabelCode` | string |  Yes | White label code | aaaaaa | \n\n## JSON Params\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `token` | string |  Yes | Password reset token sent via email, generated by `Reset Password` API | cloud | \n| `domain` | string | Yes | Website domain | domain.app |",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Forgot Password"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Forgot Password"
+        ],
+        "x-fern-sdk-method-name": "Reset Password Validate OTP",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "otp": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "otp"
+                ]
+              },
+              "example": {
+                "otp": "938468"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/password/reset/process": {
+      "post": {
+        "operationId": "postApiV1UsersPasswordResetProcess",
+        "summary": "Reset Password Process",
+        "description": "Make update password request by providing token and new password\n\n# Parameters\n\n## URL Params \n\napi/v1/users/password/token/{whitelabelCode}\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `whitelabelCode` | string |  Yes | White label code | aaaaaa | \n\n## JSON Params\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `token` | string |  Yes | Password reset token sent via email, generated by `Reset Password` API | cloud | \n| `password` | string | Yes | user password | secret|\n| `password_confirmation` | string | Yes | user password confirmatiion | secret |\n| `domain` | string | Yes | Website domain | domain.app |",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Forgot Password"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Forgot Password"
+        ],
+        "x-fern-sdk-method-name": "Reset Password Process",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "otp": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "password_confirmation": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "otp",
+                  "password",
+                  "password_confirmation"
+                ]
+              },
+              "example": {
+                "otp": "938468",
+                "password": "secret",
+                "password_confirmation": "secret"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/team/create": {
+      "post": {
+        "operationId": "postApiV1TeamCreate",
+        "summary": "Create Team",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-method-name": "Create Team",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "logo": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "name",
+                  "logo"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/team/invite": {
+      "post": {
+        "operationId": "postApiV1TeamInvite",
+        "summary": "Invite Member Team",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-method-name": "Invite Member Team",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username"
+                ]
+              },
+              "example": {
+                "username": "emberspirit"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/team/edit": {
+      "post": {
+        "operationId": "postApiV1TeamEdit",
+        "summary": "Edit Team",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-method-name": "Edit Team",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "logo": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "name",
+                  "logo"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/team/remove-member": {
+      "post": {
+        "operationId": "postApiV1TeamRemove-member",
+        "summary": "Remove member",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-method-name": "Remove member",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "user_id"
+                ]
+              },
+              "example": {
+                "user_id": 6
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/team/join": {
+      "post": {
+        "operationId": "postApiV1TeamJoin",
+        "summary": "Join Team",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-method-name": "Join Team",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "team_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "team_id"
+                ]
+              },
+              "example": {
+                "team_id": 6
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/team/set-leader": {
+      "post": {
+        "operationId": "postApiV1TeamSet-leader",
+        "summary": "Set Leader",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-method-name": "Set Leader",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "user_id"
+                ]
+              },
+              "example": {
+                "user_id": 6
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/team/leave": {
+      "post": {
+        "operationId": "postApiV1TeamLeave",
+        "summary": "Leave Team",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-method-name": "Leave Team"
+      }
+    },
+    "/api/v1/team/delete": {
+      "post": {
+        "operationId": "postApiV1TeamDelete",
+        "summary": "Delete Team",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-method-name": "Delete Team"
+      }
+    },
+    "/api/v1/team/process-invitation": {
+      "post": {
+        "operationId": "postApiV1TeamProcess-invitation",
+        "summary": "Process Invitation",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-method-name": "Process Invitation",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "{\n    \"action\" : \"reject\" //accept/reject\n}"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/team/search-user": {
+      "post": {
+        "operationId": "postApiV1TeamSearch-user",
+        "summary": "Search User",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-method-name": "Search User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username"
+                ]
+              },
+              "example": {
+                "username": "emberspir"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/team/upcoming-tournament": {
+      "get": {
+        "operationId": "getApiV1TeamUpcoming-tournament",
+        "summary": "Get Upcoming Tournament",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Team"
+        ],
+        "x-fern-sdk-method-name": "Get Upcoming Tournament"
+      }
+    },
+    "/api/v1/invoice/create": {
+      "post": {
+        "operationId": "postApiV1InvoiceCreate",
+        "summary": "Create Invoices",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Invoice"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Invoice"
+        ],
+        "x-fern-sdk-method-name": "Create Invoices",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tournament_id": {
+                    "type": "string"
+                  },
+                  "redirect_url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "tournament_id",
+                  "redirect_url"
+                ]
+              },
+              "example": {
+                "tournament_id": "642",
+                "redirect_url": "httos://orado.co.id"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/invoice/check-status": {
+      "post": {
+        "operationId": "postApiV1InvoiceCheck-status",
+        "summary": "Check Status Invoice",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Invoice"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Invoice"
+        ],
+        "x-fern-sdk-method-name": "Check Status Invoice",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "invoice_id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "invoice_id"
+                ]
+              },
+              "example": {
+                "invoice_id": "ORADOCCAAD670-3AE5-4DDA-A464-B8773FCD2A7E"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/chess/game-types": {
+      "get": {
+        "operationId": "getApiV1ChessGame-types",
+        "summary": "Game type",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Match"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Match"
+        ],
+        "x-fern-sdk-method-name": "Game type"
+      }
+    },
+    "/api/v1/chess/matchmaking/queue": {
+      "post": {
+        "operationId": "postApiV1ChessMatchmakingQueue",
+        "summary": "Create MatchMaking",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Match"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Match"
+        ],
+        "x-fern-sdk-method-name": "Create MatchMaking",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "time_control": {
+                    "type": "string"
+                  },
+                  "variant": {
+                    "type": "string"
+                  },
+                  "rated": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "time_control",
+                  "variant",
+                  "rated"
+                ]
+              },
+              "example": {
+                "time_control": "blitz_3_2",
+                "variant": "standard",
+                "rated": true
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteApiV1ChessMatchmakingQueue",
+        "summary": "Cancel Match Making",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Match"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Match"
+        ],
+        "x-fern-sdk-method-name": "Cancel Match Making",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "time_control": {
+                    "type": "string"
+                  },
+                  "variant": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "time_control",
+                  "variant"
+                ]
+              },
+              "example": {
+                "time_control": "blitz_3_2",
+                "variant": "standard"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/login-provider/list": {
+      "get": {
+        "operationId": "getApiV1Login-providerList",
+        "summary": "Login Provider List",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "Login Provider"
+        ],
+        "x-fern-sdk-group-name": [
+          "Login Provider"
+        ],
+        "x-fern-sdk-method-name": "Login Provider List"
+      }
+    },
+    "/api/v1/google/authenticate": {
+      "post": {
+        "operationId": "postApiV1GoogleAuthenticate",
+        "summary": "Google Authenticate",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "Login Provider"
+        ],
+        "x-fern-sdk-group-name": [
+          "Login Provider"
+        ],
+        "x-fern-sdk-method-name": "Google Authenticate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "access_token": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "access_token"
+                ]
+              },
+              "example": {
+                "access_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImE1NzMzYmJiZDgxOGFhNWRiMTk1MTk5Y2Q1NjhlNWQ2ODUxMzJkM2YiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIyNTQyNTEzNjU0MTUtaDJpdjJkNW4wNTJvamg3MWIyc291NGFtcnZkZ3V1c2MuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIyNTQyNTEzNjU0MTUtb2x2MDI2MHNyZ3A3b2FzN2xsdnU3a2N1MXMyY3ZwcnUuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDcwNzI4MjUzOTg0MDIxMDY5NjMiLCJoZCI6ImFub21hbGlsYWIuY29tIiwiZW1haWwiOiJhaG1hZEBhbm9tYWxpbGFiLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiQWhtYWQgU3lhcmlmIEhpZGF5YXQiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTE5NX1FBRVVnRWh3QTJHV25Qc1Bwd2F4MVVfVnVvNXhFc2g0cEZGUDlFcGN1RkZnPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IkFobWFkIFN5YXJpZiIsImZhbWlseV9uYW1lIjoiSGlkYXlhdCIsImlhdCI6MTc2Mzk2OTc4MSwiZXhwIjoxNzYzOTczMzgxfQ.ji-RcAPJoYUo8QN-evXAFw17Es9Jxot4e0eGb9DxOWY80jsnnQ0_q9jOAMzSsA1t49m69DAUJJFmnDpL3Yf5ikYKsIXNfBEAJJdA_A6u9ki5xAtqItoCK-sX-DINUTsMUX4COBgaFniTXZgiNLu3vpo3XbSXyGdVvFeLrAstqRDu2JrABkLjgCQAPR14yuWquFluvDkKPXgHTam0Tlg1uaQakIgnpdRWNcNnnZFh4sKJx-oAcHgMQhp7iCZY-s8nuNZbYSOYpYYrddP_o7TIv5PWxBWJj7nzK_6tEhsIrLkzBzKYZnBriZKDvzDnJkR5W_CSFDXOOGQ3iaJi8QjzLg"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/login-provider/callback/google": {
+      "post": {
+        "operationId": "postApiV1Login-providerCallbackGoogle",
+        "summary": "Login Provider Callback",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "Login Provider"
+        ],
+        "x-fern-sdk-group-name": [
+          "Login Provider"
+        ],
+        "x-fern-sdk-method-name": "Login Provider Callback",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "external_id": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "type": "string"
+                  },
+                  "access_token": {
+                    "type": "string"
+                  },
+                  "raw_data": {
+                    "type": "string"
+                  },
+                  "signup_ip": {
+                    "type": "string"
+                  },
+                  "is_mobile": {
+                    "type": "integer"
+                  },
+                  "referral_username": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "external_id",
+                  "email",
+                  "name",
+                  "image",
+                  "access_token",
+                  "raw_data",
+                  "signup_ip",
+                  "is_mobile",
+                  "referral_username"
+                ]
+              },
+              "example": {
+                "external_id": "108541043790293913907a",
+                "email": "abisenaaa.pramudya@gmail.com",
+                "name": "TEST MANIS",
+                "image": "",
+                "access_token": "ASDSDASDSD",
+                "raw_data": "{}",
+                "signup_ip": "127.0.0.1",
+                "is_mobile": 0,
+                "referral_username": ""
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/app/version-check": {
+      "post": {
+        "operationId": "postApiV1AppVersion-check",
+        "summary": "App Version Check",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "App"
+        ],
+        "x-fern-sdk-group-name": [
+          "App"
+        ],
+        "x-fern-sdk-method-name": "App Version Check",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "platform": {
+                    "type": "string"
+                  },
+                  "app_version": {
+                    "type": "string"
+                  },
+                  "build_number": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "platform",
+                  "app_version",
+                  "build_number"
+                ]
+              },
+              "example": {
+                "platform": "android",
+                "app_version": "1.1.1",
+                "build_number": 112
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://api.test.id"
+    }
+  ],
   "tags": [
     {
       "name": "Auth"
@@ -46,2559 +2703,13 @@
       "name": "Invoice"
     },
     {
+      "name": "Match"
+    },
+    {
       "name": "Login Provider"
     },
     {
       "name": "App"
-    }
-  ],
-  "paths": {
-    "/oauth/token": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "summary": "Login",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "description": "Retrieving access token in exchange of user and password.",
-        "operationId": "postOauthToken",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "grant_type",
-                  "client_id",
-                  "client_secret",
-                  "username",
-                  "password",
-                  "scope"
-                ],
-                "properties": {
-                  "scope": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  },
-                  "username": {
-                    "type": "string"
-                  },
-                  "client_id": {
-                    "type": "string"
-                  },
-                  "grant_type": {
-                    "type": "string"
-                  },
-                  "client_secret": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "scope": "",
-                "password": "aldobewok1001",
-                "username": "aldo10",
-                "client_id": "{{CLIENT_ID}}",
-                "grant_type": "password",
-                "client_secret": "{{CLIENT_SECRET}}"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "Auth"
-        ],
-        "x-fern-sdk-method-name": "Login"
-      }
-    },
-    "/api/v1/users/me": {
-      "get": {
-        "tags": [
-          "User",
-          "Profile"
-        ],
-        "summary": "Get User Profile",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1UsersMe",
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile"
-        ],
-        "x-fern-sdk-method-name": "Get User Profile"
-      }
-    },
-    "/api/v1/news/list": {
-      "get": {
-        "tags": [
-          "Content"
-        ],
-        "summary": "News",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1NewsList",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              },
-              "example": "{\n    \"category\" : \"publication\" // publication or news\n}"
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "Content"
-        ],
-        "x-fern-sdk-method-name": "News"
-      }
-    },
-    "/api/v1/team/edit": {
-      "post": {
-        "tags": [
-          "User",
-          "Team"
-        ],
-        "summary": "Edit Team",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1TeamEdit",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "name",
-                  "logo"
-                ],
-                "properties": {
-                  "logo": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "name": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Team"
-        ],
-        "x-fern-sdk-method-name": "Edit Team"
-      }
-    },
-    "/api/v1/team/join": {
-      "post": {
-        "tags": [
-          "User",
-          "Team"
-        ],
-        "summary": "Join Team",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1TeamJoin",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "team_id"
-                ],
-                "properties": {
-                  "team_id": {
-                    "type": "integer"
-                  }
-                }
-              },
-              "example": {
-                "team_id": 6
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Team"
-        ],
-        "x-fern-sdk-method-name": "Join Team"
-      }
-    },
-    "/captcha/api/flat": {
-      "get": {
-        "tags": [
-          "User",
-          "Registration"
-        ],
-        "summary": "Captcha",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getCaptchaApiFlat",
-        "x-fern-sdk-group-name": [
-          "User",
-          "Registration"
-        ],
-        "x-fern-sdk-method-name": "Captcha"
-      }
-    },
-    "/api/v1/pages/list": {
-      "get": {
-        "tags": [
-          "Content"
-        ],
-        "summary": "Pages",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1PagesList",
-        "x-fern-sdk-group-name": [
-          "Content"
-        ],
-        "x-fern-sdk-method-name": "Pages"
-      }
-    },
-    "/api/v1/team/leave": {
-      "post": {
-        "tags": [
-          "User",
-          "Team"
-        ],
-        "summary": "Leave Team",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1TeamLeave",
-        "x-fern-sdk-group-name": [
-          "User",
-          "Team"
-        ],
-        "x-fern-sdk-method-name": "Leave Team"
-      }
-    },
-    "/api/v1/verify/otp": {
-      "post": {
-        "tags": [
-          "User",
-          "Profile"
-        ],
-        "summary": "Verify OTP",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1VerifyOtp",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              },
-              "example": "{\n    \"otp_code\":\"626360\",\n    \"type\" : \"phone\" //email / phone\n}"
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile"
-        ],
-        "x-fern-sdk-method-name": "Verify OTP"
-      }
-    },
-    "/api/v1/galery/list": {
-      "get": {
-        "tags": [
-          "Content"
-        ],
-        "summary": "Galery",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1GaleryList",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              },
-              "example": "{\n    \"category_slug\" : \"\", //Default all\n    \"page\" : 1,\n    \"paginate\" : 20\n}"
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "Content"
-        ],
-        "x-fern-sdk-method-name": "Galery"
-      }
-    },
-    "/api/v1/team/create": {
-      "post": {
-        "tags": [
-          "User",
-          "Team"
-        ],
-        "summary": "Create Team",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1TeamCreate",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "name",
-                  "logo"
-                ],
-                "properties": {
-                  "logo": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "name": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Team"
-        ],
-        "x-fern-sdk-method-name": "Create Team"
-      }
-    },
-    "/api/v1/team/delete": {
-      "post": {
-        "tags": [
-          "User",
-          "Team"
-        ],
-        "summary": "Delete Team",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1TeamDelete",
-        "x-fern-sdk-group-name": [
-          "User",
-          "Team"
-        ],
-        "x-fern-sdk-method-name": "Delete Team"
-      }
-    },
-    "/api/v1/team/invite": {
-      "post": {
-        "tags": [
-          "User",
-          "Team"
-        ],
-        "summary": "Invite Member Team",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1TeamInvite",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "username"
-                ],
-                "properties": {
-                  "username": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "username": "emberspirit"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Team"
-        ],
-        "x-fern-sdk-method-name": "Invite Member Team"
-      }
-    },
-    "/api/v1/partner/list": {
-      "get": {
-        "tags": [
-          "Content"
-        ],
-        "summary": "Partner",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1PartnerList",
-        "x-fern-sdk-group-name": [
-          "Content"
-        ],
-        "x-fern-sdk-method-name": "Partner"
-      }
-    },
-    "/api/v1/users/logout": {
-      "post": {
-        "tags": [
-          "User",
-          "Activity"
-        ],
-        "summary": "User Logout",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersLogout",
-        "requestBody": {
-          "content": {
-            "application/json": {}
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Activity"
-        ],
-        "x-fern-sdk-method-name": "User Logout"
-      }
-    },
-    "/api/v1/verify/phone": {
-      "post": {
-        "tags": [
-          "User",
-          "Profile",
-          "Verify phone number"
-        ],
-        "summary": "Verify phone number",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1VerifyPhone",
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile",
-          "Verify phone number"
-        ],
-        "x-fern-sdk-method-name": "Verify phone number"
-      }
-    },
-    "/api/v1/document/list": {
-      "get": {
-        "tags": [
-          "Content"
-        ],
-        "summary": "Document",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1DocumentList",
-        "x-fern-sdk-group-name": [
-          "Content"
-        ],
-        "x-fern-sdk-method-name": "Document"
-      }
-    },
-    "/api/v1/pengprov/list": {
-      "get": {
-        "tags": [
-          "Content"
-        ],
-        "summary": "Pengprov",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1PengprovList",
-        "x-fern-sdk-group-name": [
-          "Content"
-        ],
-        "x-fern-sdk-method-name": "Pengprov"
-      }
-    },
-    "/api/v1/users/kyc/ocr": {
-      "post": {
-        "tags": [
-          "User",
-          "Profile",
-          "KYC"
-        ],
-        "summary": "OCR KTP",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersKycOcr",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "image_ktp"
-                ],
-                "properties": {
-                  "image_ktp": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile",
-          "KYC"
-        ],
-        "x-fern-sdk-method-name": "OCR KTP"
-      }
-    },
-    "/api/v1/invoice/create": {
-      "post": {
-        "tags": [
-          "User",
-          "Invoice"
-        ],
-        "summary": "Create Invoices",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1InvoiceCreate",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "tournament_id",
-                  "redirect_url"
-                ],
-                "properties": {
-                  "redirect_url": {
-                    "type": "string"
-                  },
-                  "tournament_id": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "redirect_url": "httos://orado.co.id",
-                "tournament_id": "642"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Invoice"
-        ],
-        "x-fern-sdk-method-name": "Create Invoices"
-      }
-    },
-    "/api/v1/team/set-leader": {
-      "post": {
-        "tags": [
-          "User",
-          "Team"
-        ],
-        "summary": "Set Leader",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1TeamSet-leader",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "user_id"
-                ],
-                "properties": {
-                  "user_id": {
-                    "type": "integer"
-                  }
-                }
-              },
-              "example": {
-                "user_id": 6
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Team"
-        ],
-        "x-fern-sdk-method-name": "Set Leader"
-      }
-    },
-    "/api/v1/tournament/join": {
-      "post": {
-        "tags": [
-          "User",
-          "Tournament"
-        ],
-        "summary": "Join Tournament",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "parameters": [
-          {
-            "in": "header",
-            "name": "secret",
-            "schema": {
-              "type": "string"
-            },
-            "example": "anothersupersecret"
-          }
-        ],
-        "operationId": "postApiV1TournamentJoin",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "tournament_id",
-                  "ip"
-                ],
-                "properties": {
-                  "ip": {
-                    "type": "string"
-                  },
-                  "tournament_id": {
-                    "type": "integer"
-                  }
-                }
-              },
-              "example": {
-                "ip": "127.0.0.1",
-                "tournament_id": 621
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Tournament"
-        ],
-        "x-fern-sdk-method-name": "Join Tournament"
-      }
-    },
-    "/api/v1/tournament/list": {
-      "get": {
-        "tags": [
-          "User",
-          "Tournament"
-        ],
-        "summary": "Get Tournament List",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1TournamentList",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              },
-              "example": "{\n    \"game_type\": \"All\", //Domino / DominoTagTeam. Default : All\n    \"status\":\"2, 1, 4\", // Status: 0 = schedule, 1 = start, 2 = end, 3 = reg closed, 4 = canceled, 5 = upcoming. seperate using to multiple filter\n    \"page\" : 1,\n    \"pagination\" : 20, //default 10,\n    \"name\" : \"\", //for search tournament by name,\n    \"date\" : \"\", //filter by date\n    \"slot_available\" : \"\", // filter tournament slot available for register 1 available, 0 full, default : All\n    \"is_register\" : null\n\n}"
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Tournament"
-        ],
-        "x-fern-sdk-method-name": "Get Tournament List"
-      }
-    },
-    "/api/v1/users/city/list": {
-      "post": {
-        "tags": [
-          "User",
-          "Profile"
-        ],
-        "summary": "Province list Copy",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersCityList",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "province_id"
-                ],
-                "properties": {
-                  "province_id": {
-                    "type": "integer"
-                  }
-                }
-              },
-              "example": {
-                "province_id": 1
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile"
-        ],
-        "x-fern-sdk-method-name": "Province list Copy"
-      }
-    },
-    "/api/v1/users/kyc/reset": {
-      "post": {
-        "tags": [
-          "User",
-          "Profile",
-          "KYC"
-        ],
-        "summary": "Reset KYC",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersKycReset",
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile",
-          "KYC"
-        ],
-        "x-fern-sdk-method-name": "Reset KYC"
-      }
-    },
-    "/api/v1/team/search-user": {
-      "post": {
-        "tags": [
-          "User",
-          "Team"
-        ],
-        "summary": "Search User",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1TeamSearch-user",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "username"
-                ],
-                "properties": {
-                  "username": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "username": "emberspir"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Team"
-        ],
-        "x-fern-sdk-method-name": "Search User"
-      }
-    },
-    "/api/v1/users/kyc/submit": {
-      "post": {
-        "tags": [
-          "User",
-          "Profile",
-          "KYC"
-        ],
-        "summary": "KYC",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersKycSubmit",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "fullname",
-                  "nik",
-                  "birth_date",
-                  "email",
-                  "phone_number",
-                  "selfie_photo",
-                  "image_ktp",
-                  "gender"
-                ],
-                "properties": {
-                  "nik": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "gender": {
-                    "type": "string"
-                  },
-                  "fullname": {
-                    "type": "string"
-                  },
-                  "image_ktp": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "birth_date": {
-                    "type": "string"
-                  },
-                  "phone_number": {
-                    "type": "string"
-                  },
-                  "selfie_photo": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile",
-          "KYC"
-        ],
-        "x-fern-sdk-method-name": "KYC"
-      }
-    },
-    "/api/v1/app/version-check": {
-      "post": {
-        "tags": [
-          "App"
-        ],
-        "summary": "App Version Check",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1AppVersion-check",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "platform",
-                  "app_version",
-                  "build_number"
-                ],
-                "properties": {
-                  "platform": {
-                    "type": "string"
-                  },
-                  "app_version": {
-                    "type": "string"
-                  },
-                  "build_number": {
-                    "type": "integer"
-                  }
-                }
-              },
-              "example": {
-                "platform": "android",
-                "app_version": "1.1.1",
-                "build_number": 112
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "App"
-        ],
-        "x-fern-sdk-method-name": "App Version Check"
-      }
-    },
-    "/api/v1/galery/categories": {
-      "get": {
-        "tags": [
-          "Content"
-        ],
-        "summary": "Galery Category",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1GaleryCategories",
-        "x-fern-sdk-group-name": [
-          "Content"
-        ],
-        "x-fern-sdk-method-name": "Galery Category"
-      }
-    },
-    "/api/v1/tournament/course": {
-      "post": {
-        "tags": [
-          "User",
-          "Tournament"
-        ],
-        "summary": "Join Course",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1TournamentCourse",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "room_id",
-                  "lobby_id"
-                ],
-                "properties": {
-                  "room_id": {
-                    "type": "integer"
-                  },
-                  "lobby_id": {
-                    "type": "integer"
-                  }
-                }
-              },
-              "example": {
-                "room_id": 3,
-                "lobby_id": 1
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Tournament"
-        ],
-        "x-fern-sdk-method-name": "Join Course"
-      }
-    },
-    "/api/v1/tournament/detail": {
-      "get": {
-        "tags": [
-          "User",
-          "Tournament"
-        ],
-        "summary": "Get Tournament Detail",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "parameters": [
-          {
-            "in": "query",
-            "name": "id",
-            "schema": {
-              "type": "integer"
-            },
-            "example": "523"
-          }
-        ],
-        "operationId": "getApiV1TournamentDetail",
-        "x-fern-sdk-group-name": [
-          "User",
-          "Tournament"
-        ],
-        "x-fern-sdk-method-name": "Get Tournament Detail"
-      }
-    },
-    "/api/v1/tournament/result": {
-      "get": {
-        "tags": [
-          "User",
-          "Tournament"
-        ],
-        "summary": "Tournament Result",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1TournamentResult",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              },
-              "example": "{\n    \"date\" : \"2026-01-06\",\n    \"type\" : \"All\", // Gaple, GapleTagTeam, All. default All\n    \"stage_id\" : \"\", //optional list on response api\n    \"tournament_id\" : \"\"  //optional lost on response api\n}"
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Tournament"
-        ],
-        "x-fern-sdk-method-name": "Tournament Result"
-      }
-    },
-    "/api/v1/users/avatar/list": {
-      "get": {
-        "tags": [
-          "User",
-          "Profile",
-          "Avatar"
-        ],
-        "summary": "Get Avatar List",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1UsersAvatarList",
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile",
-          "Avatar"
-        ],
-        "x-fern-sdk-method-name": "Get Avatar List"
-      }
-    },
-    "/api/v1/team/remove-member": {
-      "post": {
-        "tags": [
-          "User",
-          "Team"
-        ],
-        "summary": "Remove member",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1TeamRemove-member",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "user_id"
-                ],
-                "properties": {
-                  "user_id": {
-                    "type": "integer"
-                  }
-                }
-              },
-              "example": {
-                "user_id": 6
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Team"
-        ],
-        "x-fern-sdk-method-name": "Remove member"
-      }
-    },
-    "/api/v1/users/email/change": {
-      "post": {
-        "tags": [
-          "User",
-          "Profile"
-        ],
-        "summary": "Change Email",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersEmailChange",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "email"
-                ],
-                "properties": {
-                  "email": {
-                    "type": "string",
-                    "format": "email"
-                  }
-                }
-              },
-              "example": {
-                "email": "abisena.pramudya@gmail.com"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile"
-        ],
-        "x-fern-sdk-method-name": "Change Email"
-      }
-    },
-    "/api/v1/users/password/otp": {
-      "post": {
-        "tags": [
-          "User",
-          "Forgot Password"
-        ],
-        "summary": "Reset Password Validate OTP",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "description": "Validate password reset token sent via email\n\n# Parameters\n\n## URL Params \n\napi/v1/users/password/token/{whitelabelCode}\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `whitelabelCode` | string |  Yes | White label code | aaaaaa | \n\n## JSON Params\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `token` | string |  Yes | Password reset token sent via email, generated by `Reset Password` API | cloud | \n| `domain` | string | Yes | Website domain | domain.app |",
-        "operationId": "postApiV1UsersPasswordOtp",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "otp"
-                ],
-                "properties": {
-                  "otp": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "otp": "938468"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Forgot Password"
-        ],
-        "x-fern-sdk-method-name": "Reset Password Validate OTP"
-      }
-    },
-    "/api/v1/users/phone/change": {
-      "post": {
-        "tags": [
-          "User",
-          "Profile"
-        ],
-        "summary": "Change Phone",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersPhoneChange",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "telephone"
-                ],
-                "properties": {
-                  "telephone": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "telephone": "0891238231212"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile"
-        ],
-        "x-fern-sdk-method-name": "Change Phone"
-      }
-    },
-    "/api/v1/users/registration": {
-      "post": {
-        "tags": [
-          "User",
-          "Registration"
-        ],
-        "summary": "Registration",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "description": "Register new user into whitelabel website. \n\n# Parameters\n\n## JSON Params\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `username` | string |  Yes | Username | aaaaaa | \n| `password` | string | Yes | user password | secret|\n| `password_confirmation` | string | Yes | user password confirmatiion | secret |",
-        "operationId": "postApiV1UsersRegistration",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              },
-              "example": "{\n  \"username\": \"ab1sena1412\",\n  \"password\": \"secret123\",\n  \"password_confirmation\" : \"secret123\",\n  \"email\" : \"abisena.2132@gmail.com\",\n  \"telephone\" : \"895377520611\",\n  \"signup_ip\" : \"127.0.0.1\",\n  \"is_mobile\" : 0,\n  \"referral_username\" : \"\",\n  \"province_id\" : 1,\n  \"city_id\" : 1,\n  \"fullname\" : \"scrip\",\n  \"captcha\" : \"\", //optional\n  \"key\": \"\" //key for the captcha\n}"
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Registration"
-        ],
-        "x-fern-sdk-method-name": "Registration"
-      }
-    },
-    "/api/v1/google/authenticate": {
-      "post": {
-        "tags": [
-          "Login Provider"
-        ],
-        "summary": "Google Authenticate",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1GoogleAuthenticate",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "access_token"
-                ],
-                "properties": {
-                  "access_token": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "access_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImE1NzMzYmJiZDgxOGFhNWRiMTk1MTk5Y2Q1NjhlNWQ2ODUxMzJkM2YiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIyNTQyNTEzNjU0MTUtaDJpdjJkNW4wNTJvamg3MWIyc291NGFtcnZkZ3V1c2MuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIyNTQyNTEzNjU0MTUtb2x2MDI2MHNyZ3A3b2FzN2xsdnU3a2N1MXMyY3ZwcnUuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDcwNzI4MjUzOTg0MDIxMDY5NjMiLCJoZCI6ImFub21hbGlsYWIuY29tIiwiZW1haWwiOiJhaG1hZEBhbm9tYWxpbGFiLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiQWhtYWQgU3lhcmlmIEhpZGF5YXQiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTE5NX1FBRVVnRWh3QTJHV25Qc1Bwd2F4MVVfVnVvNXhFc2g0cEZGUDlFcGN1RkZnPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IkFobWFkIFN5YXJpZiIsImZhbWlseV9uYW1lIjoiSGlkYXlhdCIsImlhdCI6MTc2Mzk2OTc4MSwiZXhwIjoxNzYzOTczMzgxfQ.ji-RcAPJoYUo8QN-evXAFw17Es9Jxot4e0eGb9DxOWY80jsnnQ0_q9jOAMzSsA1t49m69DAUJJFmnDpL3Yf5ikYKsIXNfBEAJJdA_A6u9ki5xAtqItoCK-sX-DINUTsMUX4COBgaFniTXZgiNLu3vpo3XbSXyGdVvFeLrAstqRDu2JrABkLjgCQAPR14yuWquFluvDkKPXgHTam0Tlg1uaQakIgnpdRWNcNnnZFh4sKJx-oAcHgMQhp7iCZY-s8nuNZbYSOYpYYrddP_o7TIv5PWxBWJj7nzK_6tEhsIrLkzBzKYZnBriZKDvzDnJkR5W_CSFDXOOGQ3iaJi8QjzLg"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "Login Provider"
-        ],
-        "x-fern-sdk-method-name": "Google Authenticate"
-      }
-    },
-    "/api/v1/login-provider/list": {
-      "get": {
-        "tags": [
-          "Login Provider"
-        ],
-        "summary": "Login Provider List",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1Login-providerList",
-        "x-fern-sdk-group-name": [
-          "Login Provider"
-        ],
-        "x-fern-sdk-method-name": "Login Provider List"
-      }
-    },
-    "/api/v1/users/avatar/change": {
-      "post": {
-        "tags": [
-          "User",
-          "Profile",
-          "Avatar"
-        ],
-        "summary": "Update avatar",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersAvatarChange",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "avatar"
-                ],
-                "properties": {
-                  "avatar": {
-                    "type": "string",
-                    "format": "uri"
-                  }
-                }
-              },
-              "example": {
-                "avatar": "https://assets.pborado.com/avatar/0.webp"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile",
-          "Avatar"
-        ],
-        "x-fern-sdk-method-name": "Update avatar"
-      }
-    },
-    "/api/v1/users/province/list": {
-      "post": {
-        "tags": [
-          "User",
-          "Profile"
-        ],
-        "summary": "Province list",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersProvinceList",
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile"
-        ],
-        "x-fern-sdk-method-name": "Province list"
-      }
-    },
-    "/api/v1/users/referral/list": {
-      "get": {
-        "tags": [
-          "User",
-          "Profile"
-        ],
-        "summary": "Referral List",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1UsersReferralList",
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile"
-        ],
-        "x-fern-sdk-method-name": "Referral List"
-      }
-    },
-    "/api/v1/invoice/check-status": {
-      "post": {
-        "tags": [
-          "User",
-          "Invoice"
-        ],
-        "summary": "Check Status Invoice",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1InvoiceCheck-status",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "invoice_id"
-                ],
-                "properties": {
-                  "invoice_id": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "invoice_id": "ORADOCCAAD670-3AE5-4DDA-A464-B8773FCD2A7E"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Invoice"
-        ],
-        "x-fern-sdk-method-name": "Check Status Invoice"
-      }
-    },
-    "/api/v1/tournament/best-team": {
-      "get": {
-        "tags": [
-          "User",
-          "Tournament"
-        ],
-        "summary": "Best Team",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1TournamentBest-team",
-        "x-fern-sdk-group-name": [
-          "User",
-          "Tournament"
-        ],
-        "x-fern-sdk-method-name": "Best Team"
-      }
-    },
-    "/api/v1/users/password/reset": {
-      "post": {
-        "tags": [
-          "User",
-          "Forgot Password"
-        ],
-        "summary": "Reset Password",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "description": "Reset password and send token to email\n\n# Parameters\n\n## URL Params \n\napi/v1/users/password/reset/{whitelabelCode}\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `whitelabelCode` | string |  Yes | White label code | aaaaaa | \n\n## JSON Params\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `username` | string |  Yes | Username | cloud | \n| `domain` | string | Yes | Website domain | domain.app |",
-        "operationId": "postApiV1UsersPasswordReset",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "email",
-                  "domain"
-                ],
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  },
-                  "domain": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "email": "",
-                "domain": "orado.co.id"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Forgot Password"
-        ],
-        "x-fern-sdk-method-name": "Reset Password"
-      }
-    },
-    "/api/v1/users/profile/update": {
-      "post": {
-        "tags": [
-          "User",
-          "Profile"
-        ],
-        "summary": "Update profile",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersProfileUpdate",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "fullname",
-                  "birth_date",
-                  "gender",
-                  "email",
-                  "city",
-                  "hide_age",
-                  "hide_birth_date",
-                  "hide_province",
-                  "hide_city",
-                  "user_pic",
-                  "province_id",
-                  "telephone"
-                ],
-                "properties": {
-                  "city": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string",
-                    "format": "email"
-                  },
-                  "gender": {
-                    "type": "string"
-                  },
-                  "fullname": {
-                    "type": "string"
-                  },
-                  "hide_age": {
-                    "type": "integer"
-                  },
-                  "user_pic": {
-                    "type": "string"
-                  },
-                  "hide_city": {
-                    "type": "integer"
-                  },
-                  "telephone": {
-                    "type": "string"
-                  },
-                  "birth_date": {
-                    "type": "string",
-                    "format": "date"
-                  },
-                  "province_id": {
-                    "type": "integer"
-                  },
-                  "hide_province": {
-                    "type": "integer"
-                  },
-                  "hide_birth_date": {
-                    "type": "integer"
-                  }
-                }
-              },
-              "example": {
-                "city": "bekasy",
-                "email": "test1@gmail.com",
-                "gender": "male",
-                "fullname": "emberspirit",
-                "hide_age": 1,
-                "user_pic": "update.jpg",
-                "hide_city": 1,
-                "telephone": "0222",
-                "birth_date": "2024-10-10",
-                "province_id": 1,
-                "hide_province": 1,
-                "hide_birth_date": 1
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile"
-        ],
-        "x-fern-sdk-method-name": "Update profile"
-      }
-    },
-    "/oauth/token#postOauthToken2": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "summary": "Client Credential Grant",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postOauthToken2",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "grant_type",
-                  "client_id",
-                  "client_secret",
-                  "scope"
-                ],
-                "properties": {
-                  "scope": {
-                    "type": "string"
-                  },
-                  "client_id": {
-                    "type": "string"
-                  },
-                  "grant_type": {
-                    "type": "string"
-                  },
-                  "client_secret": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "scope": "",
-                "client_id": "{{MACHINE_ID}}",
-                "grant_type": "client_credentials",
-                "client_secret": "{{MACHINE_SECRET}}"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "Auth"
-        ],
-        "x-fern-sdk-method-name": "Client Credential Grant"
-      }
-    },
-    "/api/v1/users/forgot/username": {
-      "post": {
-        "tags": [
-          "User",
-          "Forgot Password"
-        ],
-        "summary": "Forgot Username",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "description": "Reset password and send token to email\n\n# Parameters\n\n## URL Params \n\napi/v1/users/password/reset/{whitelabelCode}\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `whitelabelCode` | string |  Yes | White label code | aaaaaa | \n\n## JSON Params\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `username` | string |  Yes | Username | cloud | \n| `domain` | string | Yes | Website domain | domain.app |",
-        "operationId": "postApiV1UsersForgotUsername",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "email"
-                ],
-                "properties": {
-                  "email": {
-                    "type": "string",
-                    "format": "email"
-                  }
-                }
-              },
-              "example": {
-                "email": "test@gmail.com"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Forgot Password"
-        ],
-        "x-fern-sdk-method-name": "Forgot Username"
-      }
-    },
-    "/api/v1/users/password/update": {
-      "post": {
-        "tags": [
-          "User",
-          "Profile"
-        ],
-        "summary": "Update Password",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersPasswordUpdate",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "old_password",
-                  "password",
-                  "password_confirmation"
-                ],
-                "properties": {
-                  "password": {
-                    "type": "string"
-                  },
-                  "old_password": {
-                    "type": "string"
-                  },
-                  "password_confirmation": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "password": "secret",
-                "old_password": "secret",
-                "password_confirmation": "secret"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile"
-        ],
-        "x-fern-sdk-method-name": "Update Password"
-      }
-    },
-    "/api/v1/tournament/course-team": {
-      "post": {
-        "tags": [
-          "User",
-          "Tournament"
-        ],
-        "summary": "Join Course Tag Team",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1TournamentCourse-team",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "room_id",
-                  "team",
-                  "lobby_id"
-                ],
-                "properties": {
-                  "team": {
-                    "type": "string"
-                  },
-                  "room_id": {
-                    "type": "integer"
-                  },
-                  "lobby_id": {
-                    "type": "integer"
-                  }
-                }
-              },
-              "example": {
-                "team": "A",
-                "room_id": 1,
-                "lobby_id": 1
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Tournament"
-        ],
-        "x-fern-sdk-method-name": "Join Course Tag Team"
-      }
-    },
-    "/api/v1/tournament/course/list": {
-      "get": {
-        "tags": [
-          "User",
-          "Tournament"
-        ],
-        "summary": "Get Course List",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1TournamentCourseList",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              },
-              "example": "{\n    \"game_type\" : \"Domino\" // 'Domino' or 'DominoTagTeam'\n}"
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Tournament"
-        ],
-        "x-fern-sdk-method-name": "Get Course List"
-      }
-    },
-    "/api/v1/tournament/my-rankings": {
-      "get": {
-        "tags": [
-          "User",
-          "Tournament"
-        ],
-        "summary": "My Ranking",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1TournamentMy-rankings",
-        "x-fern-sdk-group-name": [
-          "User",
-          "Tournament"
-        ],
-        "x-fern-sdk-method-name": "My Ranking"
-      }
-    },
-    "/api/v1/users/lastlogin/update": {
-      "post": {
-        "tags": [
-          "User",
-          "Activity"
-        ],
-        "summary": "User Update Last Login IP",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersLastloginUpdate",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "login_ip",
-                  "platform",
-                  "user_agent",
-                  "session",
-                  "domain"
-                ],
-                "properties": {
-                  "domain": {
-                    "type": "string"
-                  },
-                  "session": {
-                    "type": "string"
-                  },
-                  "login_ip": {
-                    "type": "string"
-                  },
-                  "platform": {
-                    "type": "string"
-                  },
-                  "user_agent": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "domain": "web.com",
-                "session": "",
-                "login_ip": "127.0.0.1",
-                "platform": "mobile",
-                "user_agent": "Fake Taxi"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Activity"
-        ],
-        "x-fern-sdk-method-name": "User Update Last Login IP"
-      }
-    },
-    "/api/v1/users/session/validate": {
-      "post": {
-        "tags": [
-          "User",
-          "Activity"
-        ],
-        "summary": "Validate Session",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersSessionValidate",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "username",
-                  "session"
-                ],
-                "properties": {
-                  "session": {
-                    "type": "string"
-                  },
-                  "username": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "session": "test",
-                "username": "emberspirit"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Activity"
-        ],
-        "x-fern-sdk-method-name": "Validate Session"
-      }
-    },
-    "/api/v1/team/process-invitation": {
-      "post": {
-        "tags": [
-          "User",
-          "Team"
-        ],
-        "summary": "Process Invitation",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1TeamProcess-invitation",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              },
-              "example": "{\n    \"action\" : \"reject\" //accept/reject\n}"
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Team"
-        ],
-        "x-fern-sdk-method-name": "Process Invitation"
-      }
-    },
-    "/api/v1/users/checkavailibility": {
-      "post": {
-        "tags": [
-          "User",
-          "Registration"
-        ],
-        "summary": "Check Avaibility Username",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersCheckavailibility",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "username"
-                ],
-                "properties": {
-                  "username": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "username": "emberspirait"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Registration"
-        ],
-        "x-fern-sdk-method-name": "Check Avaibility Username"
-      }
-    },
-    "/api/v1/users/password/validate": {
-      "post": {
-        "tags": [
-          "User",
-          "Activity"
-        ],
-        "summary": "Validate Old Password",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersPasswordValidate",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "old_password"
-                ],
-                "properties": {
-                  "old_password": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "old_password": "123456"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Activity"
-        ],
-        "x-fern-sdk-method-name": "Validate Old Password"
-      }
-    },
-    "/api/v1/team/upcoming-tournament": {
-      "get": {
-        "tags": [
-          "User",
-          "Team"
-        ],
-        "summary": "Get Upcoming Tournament",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1TeamUpcoming-tournament",
-        "x-fern-sdk-group-name": [
-          "User",
-          "Team"
-        ],
-        "x-fern-sdk-method-name": "Get Upcoming Tournament"
-      }
-    },
-    "/api/v1/tournament/register/list": {
-      "get": {
-        "tags": [
-          "User",
-          "Tournament"
-        ],
-        "summary": "Get tournament Registered",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1TournamentRegisterList",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              },
-              "example": "{\n    \"game_type\": \"All\", //Domino / DominoTagTeam. Default : All\n    \"page\" : 1,\n    \"pagination\" : 20 //default 10\n}"
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Tournament"
-        ],
-        "x-fern-sdk-method-name": "Get tournament Registered"
-      }
-    },
-    "/api/v1/tournament/result/detail": {
-      "get": {
-        "tags": [
-          "User",
-          "Tournament"
-        ],
-        "summary": "Tournament Result Detail",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1TournamentResultDetail",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "id"
-                ],
-                "properties": {
-                  "id": {
-                    "type": "integer"
-                  }
-                }
-              },
-              "example": {
-                "id": 1995
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Tournament"
-        ],
-        "x-fern-sdk-method-name": "Tournament Result Detail"
-      }
-    },
-    "/api/v1/users/history-tournament": {
-      "get": {
-        "tags": [
-          "User",
-          "Profile"
-        ],
-        "summary": "History Tournament",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1UsersHistory-tournament",
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile"
-        ],
-        "x-fern-sdk-method-name": "History Tournament"
-      }
-    },
-    "/api/v1/tournament/national-rankings": {
-      "get": {
-        "tags": [
-          "User",
-          "Tournament"
-        ],
-        "summary": "National Ranking",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1TournamentNational-rankings",
-        "x-fern-sdk-group-name": [
-          "User",
-          "Tournament"
-        ],
-        "x-fern-sdk-method-name": "National Ranking"
-      }
-    },
-    "/api/v1/users/change/profile-picture": {
-      "post": {
-        "tags": [
-          "User",
-          "Profile"
-        ],
-        "summary": "Change Profile Pict",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersChangeProfile-picture",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "image"
-                ],
-                "properties": {
-                  "image": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile"
-        ],
-        "x-fern-sdk-method-name": "Change Profile Pict"
-      }
-    },
-    "/api/v1/users/password/reset/process": {
-      "post": {
-        "tags": [
-          "User",
-          "Forgot Password"
-        ],
-        "summary": "Reset Password Process",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "description": "Make update password request by providing token and new password\n\n# Parameters\n\n## URL Params \n\napi/v1/users/password/token/{whitelabelCode}\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `whitelabelCode` | string |  Yes | White label code | aaaaaa | \n\n## JSON Params\n\n| Params        | Type           | Mandatory  | Desc | Sample |\n| ------- |:-------------:| -----:| ----- | ---- |\n| `token` | string |  Yes | Password reset token sent via email, generated by `Reset Password` API | cloud | \n| `password` | string | Yes | user password | secret|\n| `password_confirmation` | string | Yes | user password confirmatiion | secret |\n| `domain` | string | Yes | Website domain | domain.app |",
-        "operationId": "postApiV1UsersPasswordResetProcess",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "otp",
-                  "password",
-                  "password_confirmation"
-                ],
-                "properties": {
-                  "otp": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  },
-                  "password_confirmation": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "otp": "938468",
-                "password": "secret",
-                "password_confirmation": "secret"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Forgot Password"
-        ],
-        "x-fern-sdk-method-name": "Reset Password Process"
-      }
-    },
-    "/api/v1/users/profile/update-privacy": {
-      "post": {
-        "tags": [
-          "User",
-          "Profile"
-        ],
-        "summary": "Update Privacy",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersProfileUpdate-privacy",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "hide_age",
-                  "hide_birth_date",
-                  "hide_province",
-                  "hide_city"
-                ],
-                "properties": {
-                  "hide_age": {
-                    "type": "integer"
-                  },
-                  "hide_city": {
-                    "type": "integer"
-                  },
-                  "hide_province": {
-                    "type": "integer"
-                  },
-                  "hide_birth_date": {
-                    "type": "integer"
-                  }
-                }
-              },
-              "example": {
-                "hide_age": 1,
-                "hide_city": 1,
-                "hide_province": 1,
-                "hide_birth_date": 1
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile"
-        ],
-        "x-fern-sdk-method-name": "Update Privacy"
-      }
-    },
-    "/api/v1/tournament/table-distribution": {
-      "get": {
-        "tags": [
-          "User",
-          "Tournament"
-        ],
-        "summary": "Table Distribution",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "getApiV1TournamentTable-distribution",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "id"
-                ],
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "id": "351"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Tournament"
-        ],
-        "x-fern-sdk-method-name": "Table Distribution"
-      }
-    },
-    "/api/v1/users/email/checkavailibility": {
-      "post": {
-        "tags": [
-          "User",
-          "Registration"
-        ],
-        "summary": "Check Avaibility Email",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1UsersEmailCheckavailibility",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "email"
-                ],
-                "properties": {
-                  "email": {
-                    "type": "string",
-                    "format": "email"
-                  }
-                }
-              },
-              "example": {
-                "email": "test@gmail.coma"
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "User",
-          "Registration"
-        ],
-        "x-fern-sdk-method-name": "Check Avaibility Email"
-      }
-    },
-    "/api/v1/login-provider/callback/google": {
-      "post": {
-        "tags": [
-          "Login Provider"
-        ],
-        "summary": "Login Provider Callback",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1Login-providerCallbackGoogle",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "external_id",
-                  "email",
-                  "name",
-                  "image",
-                  "access_token",
-                  "raw_data",
-                  "signup_ip",
-                  "is_mobile",
-                  "referral_username"
-                ],
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string",
-                    "format": "email"
-                  },
-                  "image": {
-                    "type": "string"
-                  },
-                  "raw_data": {
-                    "type": "string"
-                  },
-                  "is_mobile": {
-                    "type": "integer"
-                  },
-                  "signup_ip": {
-                    "type": "string"
-                  },
-                  "external_id": {
-                    "type": "string"
-                  },
-                  "access_token": {
-                    "type": "string"
-                  },
-                  "referral_username": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "name": "TEST MANIS",
-                "email": "abisenaaa.pramudya@gmail.com",
-                "image": "",
-                "raw_data": "{}",
-                "is_mobile": 0,
-                "signup_ip": "127.0.0.1",
-                "external_id": "108541043790293913907a",
-                "access_token": "ASDSDASDSD",
-                "referral_username": ""
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": [
-          "Login Provider"
-        ],
-        "x-fern-sdk-method-name": "Login Provider Callback"
-      }
-    },
-    "/api/v1/email/verification-notification": {
-      "post": {
-        "tags": [
-          "User",
-          "Profile"
-        ],
-        "summary": "OTP Email Verification",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        },
-        "operationId": "postApiV1EmailVerification-notification",
-        "x-fern-sdk-group-name": [
-          "User",
-          "Profile"
-        ],
-        "x-fern-sdk-method-name": "OTP Email Verification"
-      }
-    }
-  },
-  "openapi": "3.1.0",
-  "servers": [
-    {
-      "url": "http://api.test.id"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
     }
   ],
   "components": {
@@ -2609,5 +2720,10 @@
         "bearerFormat": "JWT"
       }
     }
-  }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
 }
