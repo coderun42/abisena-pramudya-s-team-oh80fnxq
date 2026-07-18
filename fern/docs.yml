@@ -31,6 +31,7 @@ navigation:
             - user.invoice: {}
             - user.tournament: {}
             - user.forgotPassword: {}
+            - user.match: {}
     summary: docs/pages/collection-overview.mdx
 colors:
   accent-primary:
