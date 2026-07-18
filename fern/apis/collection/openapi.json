@@ -2472,6 +2472,26 @@
         }
       }
     },
+    "/": {
+      "get": {
+        "operationId": "get",
+        "summary": "Spacetatore",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "tags": [
+          "User",
+          "Match"
+        ],
+        "x-fern-sdk-group-name": [
+          "User",
+          "Match"
+        ],
+        "x-fern-sdk-method-name": "Spacetatore"
+      }
+    },
     "/api/v1/login-provider/list": {
       "get": {
         "operationId": "getApiV1Login-providerList",
