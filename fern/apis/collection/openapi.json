@@ -2365,7 +2365,181 @@
         "summary": "Game type",
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "OK",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "no-cache, private"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "response_code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "success": {
+                          "type": "boolean"
+                        },
+                        "response": {
+                          "type": "string"
+                        },
+                        "response_code": {
+                          "type": "integer"
+                        },
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "time_controls": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "speed": {
+                                    "type": "string"
+                                  },
+                                  "base": {
+                                    "type": "integer"
+                                  },
+                                  "inc": {
+                                    "type": "integer"
+                                  },
+                                  "label": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "speed",
+                                  "base",
+                                  "inc",
+                                  "label"
+                                ]
+                              }
+                            },
+                            "variants": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "required": [
+                            "time_controls",
+                            "variants"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "success",
+                        "response",
+                        "response_code",
+                        "data"
+                      ]
+                    },
+                    "errors": {
+                      "type": [
+                        "null"
+                      ]
+                    },
+                    "server": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "response_code",
+                    "message",
+                    "data",
+                    "server"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "response_code": 200,
+                  "message": "Game types.",
+                  "data": {
+                    "success": true,
+                    "response": "success",
+                    "response_code": 200,
+                    "data": {
+                      "time_controls": [
+                        {
+                          "id": "bullet_1_0",
+                          "speed": "bullet",
+                          "base": 60,
+                          "inc": 0,
+                          "label": "1 | 0"
+                        },
+                        {
+                          "id": "bullet_2_1",
+                          "speed": "bullet",
+                          "base": 120,
+                          "inc": 1,
+                          "label": "2 | 1"
+                        },
+                        {
+                          "id": "blitz_3_0",
+                          "speed": "blitz",
+                          "base": 180,
+                          "inc": 0,
+                          "label": "3 | 0"
+                        },
+                        {
+                          "id": "blitz_3_2",
+                          "speed": "blitz",
+                          "base": 180,
+                          "inc": 2,
+                          "label": "3 | 2"
+                        },
+                        {
+                          "id": "blitz_5_0",
+                          "speed": "blitz",
+                          "base": 300,
+                          "inc": 0,
+                          "label": "5 | 0"
+                        },
+                        {
+                          "id": "rapid_10_0",
+                          "speed": "rapid",
+                          "base": 600,
+                          "inc": 0,
+                          "label": "10 | 0"
+                        },
+                        {
+                          "id": "rapid_15_10",
+                          "speed": "rapid",
+                          "base": 900,
+                          "inc": 10,
+                          "label": "15 | 10"
+                        }
+                      ],
+                      "variants": [
+                        "standard"
+                      ]
+                    }
+                  },
+                  "errors": null,
+                  "server": 28
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -2384,8 +2558,75 @@
         "operationId": "postApiV1ChessMatchmakingQueue",
         "summary": "Create MatchMaking",
         "responses": {
-          "200": {
-            "description": "Successful response"
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "no-cache, private"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "response_code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "queued_at": {
+                          "type": "string"
+                        },
+                        "seeker_id": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "queued_at",
+                        "seeker_id"
+                      ]
+                    },
+                    "errors": {
+                      "type": [
+                        "null"
+                      ]
+                    },
+                    "server": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "response_code",
+                    "message",
+                    "data",
+                    "server"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "response_code": 202,
+                  "message": "Queued for matchmaking.",
+                  "data": {
+                    "queued_at": "2026-07-20 09:22:30.947",
+                    "seeker_id": "1c484cc1efd30a3d00ab8cd1"
+                  },
+                  "errors": null,
+                  "server": 28
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -2433,7 +2674,60 @@
         "summary": "Cancel Match Making",
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "OK",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "no-cache, private"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "response_code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": [
+                        "null"
+                      ]
+                    },
+                    "errors": {
+                      "type": [
+                        "null"
+                      ]
+                    },
+                    "server": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "response_code",
+                    "message",
+                    "server"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "response_code": 200,
+                  "message": "Matchmaking cancelled.",
+                  "data": null,
+                  "errors": null,
+                  "server": 28
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -2678,7 +2972,7 @@
   },
   "servers": [
     {
-      "url": "http://api.test.id"
+      "url": "http://getapi.chesstify.xyz"
     }
   ],
   "tags": [
